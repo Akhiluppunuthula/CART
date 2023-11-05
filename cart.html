@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        text-align: center;
+        margin: 20px 0px;
+      }
+      button {
+        background-color: black;
+        border: 0;
+        outline: 0;
+        border-radius: 20px;
+        color: white;
+        margin: 1vh;
+      }
+      li{
+        list-style-type: none;
+        line-height: 4vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cartContainer">
+      <div style="font-size: 40px ; color:blue;">
+        CART
+      </div>
+    </div>
+    <script>
+      const cartContainer = document.getElementById("cartContainer");
+      let cartGetting = localStorage.getItem("cart");
+      cartGetting == null
+        ? (cartGetting = [])
+        : (cartGetting = JSON.parse(cartGetting));
+
+      console.log(cartGetting);
+
+      cartGetting.map((val, ind, array) => {
+        let itemContainer = document.createElement("div");
+
+        let imgCreating = document.createElement("img");
+        imgCreating.setAttribute("src", val["thumbnail"]);
+        itemContainer.appendChild(imgCreating);
+
+        let li1 = document.createElement("li");
+        li1.innerText = `ID NO : ${val.id}`;
+        itemContainer.appendChild(li1);
+        let li2 = document.createElement("li");
+        li2.innerText = `TITLE : ${val.title}`;
+        itemContainer.appendChild(li2);
+        let li3 = document.createElement("li");
+        li3.innerText = `DESCRIPTION : ${val.description}`;
+        itemContainer.appendChild(li3);
+        let li4 = document.createElement("li");
+        li4.innerText = `BRAND : ${val.brand}`;
+        itemContainer.appendChild(li4);
+        let li5 = document.createElement("li");
+        let btnBuyCreating = document.createElement("button");
+        btnBuyCreating.innerText = "BUY NOW";
+        btnBuyCreating.addEventListener("click", () => {
+          window.location.assign("./buy.html");
+        });
+        li5.appendChild(btnBuyCreating);
+        itemContainer.appendChild(li5);
+        let btnRemove = document.createElement("button");
+        let li6 = document.createElement("li");
+        btnRemove.innerText = "REMOVE";
+        btnRemove.addEventListener("click", () => {
+          const indexToRemove = cartGetting.findIndex(
+            (item) => item.id === val.id
+          );
+          if (indexToRemove > -1) {
+            cartGetting.splice(indexToRemove, 1);
+            itemContainer.remove();
+          }
+        });
+        itemContainer.appendChild(btnRemove);
+
+        cartContainer.appendChild(itemContainer);
+      });
+    </script>
+  </body>
+</html>
