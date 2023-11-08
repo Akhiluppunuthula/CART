@@ -16,10 +16,14 @@
         border-radius: 20px;
         color: white;
         margin: 1vh;
+        cursor: pointer;
       }
       li{
         list-style-type: none;
         line-height: 4vh;
+      }
+      body{
+        background-color: rgb(217, 212, 212);
       }
     </style>
   </head>
@@ -40,6 +44,9 @@
 
       cartGetting.map((val, ind, array) => {
         let itemContainer = document.createElement("div");
+        itemContainer.style.border = "1px solid black"
+        itemContainer.style.backGround = " black"
+
 
         let imgCreating = document.createElement("img");
         imgCreating.setAttribute("src", val["thumbnail"]);
@@ -65,6 +72,8 @@
         });
         li5.appendChild(btnBuyCreating);
         itemContainer.appendChild(li5);
+
+        
         let btnRemove = document.createElement("button");
         let li6 = document.createElement("li");
         btnRemove.innerText = "REMOVE";
@@ -72,6 +81,7 @@
           const indexToRemove = cartGetting.findIndex(
             (item) => item.id === val.id
           );
+          console.log(indexToRemove)
           if (indexToRemove > -1) {
             cartGetting.splice(indexToRemove, 1);
             itemContainer.remove();

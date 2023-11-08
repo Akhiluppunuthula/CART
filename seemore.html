@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Cinzel:wght@500;800&family=Ysabeau+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body{
+            background: rgb(19, 211, 241);
+        }
+        button{
+            background: rgb(75, 243, 14);
+            padding: 10px;
+            outline: 0;
+            border: 1px solid white;
+            color: white;
+            margin:50px 600px;
+            border-radius: 50px;
+        }
+        img{
+            width:300px;
+            height: 300px;
+        }
+        li{
+            color:rgb(10, 10, 10);
+            font-size: 4vh;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">BACK</button>
+    <script>
+        let data = []
+        let val = JSON.parse(localStorage.getItem("${value}"))
+        let img = document.createElement("img")
+        img.setAttribute("src",val.thumbnail)
+        document.body.appendChild(img)
+        let li1 = document.createElement("li")
+        li1.innerText=`ID NO : ${val.id}`
+        document.body.appendChild(li1)
+        let li2 = document.createElement("li")
+        li2.innerText=`TITLE : ${val.title}`
+        document.body.appendChild(li2)
+        let li3 = document.createElement("li")
+        li3.innerText=`DESCRIPTION : ${val.description}`
+        document.body.appendChild(li3)
+        let li4 = document.createElement("li")
+        li4.innerText=`BRAND : ${val.brand}`
+        document.body.appendChild(li4)
+        
+        let btn = document.getElementById("btn")
+        btn.addEventListener("click",()=>{
+            window.location.assign("./task.html")
+            window.history.back()
+        })
+    </script>
+</body>
+</html>
