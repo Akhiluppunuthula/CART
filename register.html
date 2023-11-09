@@ -1,102 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>REGISTRATION</title>
+    <link rel="stylesheet" href="forms.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html,body{
-            width: 100%;
-            height: 100%;
-        }
-        body{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #form{
-            background-color: aliceblue;
-            line-height: 6vh;
-        }
-        button{
-            padding: 5px 15px;
-            border-radius: 10px;
-            background-color: azure;
-        }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+      }
+      #form {
+        background-color: aliceblue;
+        line-height: 6vh;
+      }
+      button {
+        padding: 5px 15px;
+        border-radius: 10px;
+        background-color: azure;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-<div id="main">
+  <body>
     <form action="" id="form">
-        <label for="user">Username:</label>
-        <input type="text" id="user" placeholder="Username" style="margin-left:52px"><br>
-        <label for="pass">Password:  </label>
-        <input type="password" id="pass" placeholder="Password" style="margin-left:56px"><br>
-        <label for="cPass">Confirm password:</label>
-        <input type="password" name="" id="cPass" placeholder="Confirm password"><br>
-        <input type="submit" value="submit" style="margin-left:130px; margin-top:10px;padding:5px 10px;border-radius: 10px;background-color: azure;"><br>
-    </form>
-    <button id="login" style="margin-left:130px; margin-top:10px">login</button>
-</div>
+      <div class="forms">
+        <div class="card">
+          <div class="img">
+            <img src="image.jpg" alt="" />
+          </div>
+          <div class="text">
+            <div class="head">
+              registration form
+            </div>
+            <div class="input">
+              <h5 class="block1">
+                USERNAME: <br />
+                <input class="block1" type="text" id="user" />
+              </h5>
 
+              <h5 class="block1">
+                PASSWORD: <br />
+                <input class="block1" type="password" id="pass" />
+              </h5>
+
+              <h5 class="block1">
+                CONFIRM PASSWORD: <br /><input
+                  class="block1"
+                  type="password"
+                  id="cPass"
+                />
+              </h5>
+              <input
+                type="submit"
+                value="SUBMIT"
+                style="
+                  margin-top: 40px;
+                  padding: 5px 10px;
+                  border-radius: 10px;
+                  background-color: azure;
+                "
+                class="sub"
+              />
+              <button id="login" style="margin-left: 130px;">LOGIN</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
 
     <script>
-        let form=document.getElementById("form")
-        let login=document.getElementById("login")
+      let form = document.getElementById("form");
+      let login = document.getElementById("login");
 
-        login.addEventListener("click",(e)=>{
-            window.location.assign("./login.html")
-        })
+      login.addEventListener("click", (e) => {
+        window.location.assign("./login.html");
+      });
 
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let username = document.getElementById("user").value;
+        let password = document.getElementById("pass").value;
+        let cPassword = document.getElementById("cPass").value;
 
+        if (username[0] !== username[0].toUpperCase() || username.length < 6) {
+          alert("Incorrect user format");
+          return;
+        }
+        const lengthCondition = password.length >= 8;
+        const patternCondition =
+          /[A-Z]/.test(password) &&
+          /[a-z]/.test(password) &&
+          /\d/.test(password);
 
-        form.addEventListener("submit",(e)=>{
-            e.preventDefault()
-            let username=document.getElementById("user").value
-            let password=document.getElementById("pass").value
-            let cPassword=document.getElementById("cPass").value
+        if (!lengthCondition || !patternCondition || password !== cPassword) {
+          alert("Incorrect password");
+          return;
+        }
 
+        let users = JSON.parse(localStorage.getItem("list")) || [];
+        const user = { username, password };
+        let old = users.find((item) => item.username === username);
+        if (old) {
+          alert("User already exists");
+          return;
+        }
+        users.push(user);
+        localStorage.setItem("list", JSON.stringify(users));
+        alert("User registered successfully")
 
-            if(username[0]!==username[0].toUpperCase() || username.length<6){
-                alert("Incorrect user format")
-                return;
-            }
-            const lengthCondition = password.length >= 8;
-            const patternCondition = /[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password);
-
-            if(!lengthCondition || !patternCondition || password!==cPassword){
-                alert("Incorrect password")
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem("list")) || [];
-            const user = {username,password}
-            let old = users.find((item)=>item.username===username)
-             if(old){
-                alert("User already exists")
-                return
-             }
-            users.push(user);
-            localStorage.setItem("list", JSON.stringify(users));
-        
-        
-        
-        
-            form.reset()
-        })
-
-
-
-        
-
-
+        form.reset();
+      });
     </script>
-</body>
+  </body>
 </html>
