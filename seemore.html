@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>SEE MORE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,147 +17,158 @@
     <style>
       body {
         font-family: "Black Ops One", cursive;
-        font-family: "Cinzel", serif;
-        font-family: "Ysabeau SC", sans-serif;
-        background-size: cover;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
+        background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        margin: 0;
+        padding: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100vw;
         height: 100vh;
-        overflow: hidden;
       }
 
       #product {
         display: flex;
         flex-wrap: wrap;
-        /* background-color: black; */
-        color: white;
-        margin-left: 25px;
-      }
-      #product .product-card:hover {
-        padding: 20px;
+        gap: 20px;
+        justify-content: center;
       }
 
       .product-card {
-        background-image: linear-gradient(
-            -225deg,
-            #2cd8d5 0%,
-            #c5c1ff 56%,
-            #ffbac3 100%
-          );
-        display: inline-block;
+        background: linear-gradient(-225deg, #2cd8d5 0%, #c5c1ff 56%, #ffbac3 100%);
         width: 300px;
-        color: white;
-        margin: 30px;
-        border: 1px solid white;
+        color: rgb(9, 9, 9);
+        margin: 20px;
         border-radius: 10px;
-        padding: 10px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        border: 0;
-        outline: 0;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-card:hover {
+        transform: scale(1.05);
       }
 
       .product-card img {
-        height: 200px;
+        width: 100%;
+        height: auto;
+        border-radius: 10px 10px 0 0;
       }
 
-      body {
-
-        background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-        color: white;
+      .product-details {
+        padding: 10px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
       }
 
-      nav {
-        text-align: center;
-        background-color: black;
-        height: 60px;
+      .product-details p {
+        margin: 5px 0;
+      }
+
+      .btn-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
       }
 
       button {
-        margin-top: 10px;
         height: 40px;
-        width: 160px;
-        margin-left: 0px;
+        width: 48%;
         font-size: large;
         cursor: pointer;
-      }
-      span {
-        margin-left: 270px;
+        color: white;
       }
     </style>
   </head>
   <body>
-    <div></div>
-
+    <div id="product"></div>
     <script>
       let api = [];
       let getitems = JSON.parse(localStorage.getItem("seemore"));
-
+    
       console.log(getitems);
       api.push(getitems);
       console.log(api);
       console.log(typeof getitems);
-
-      //    api.push((val)=>{
-      //     console.log(val)
-
-      //    })
-
-      let divgetting = document.getElementsByTagName("div");
-      api.filter((val, ind, array) => {
+    
+      let divgetting = document.getElementById("product");
+    
+      api.forEach((val) => {
         let divcreating = document.createElement("div");
         divcreating.className = "product-card";
-
+    
         let productImg = document.createElement("img");
         productImg.setAttribute("src", val.thumbnail);
-        productImg.style.width = "100%";
         divcreating.appendChild(productImg);
-
+    
+        let productDetails = document.createElement("div");
+        productDetails.className = "product-details";
+    
         let productId = document.createElement("p");
         productId.innerText = `ID : ${val.id}`;
-        divcreating.appendChild(productId);
-
+        productDetails.appendChild(productId);
+    
         let productTitle = document.createElement("h3");
         productTitle.innerText = `${val.title}`;
-        productTitle.style.color = "aqua";
-        divcreating.appendChild(productTitle);
-
+        productDetails.appendChild(productTitle);
+    
         let productDescription = document.createElement("p");
         productDescription.innerText = `Description : ${val.description}`;
-        divcreating.appendChild(productDescription);
-
+        productDetails.appendChild(productDescription);
+    
         let productPrice = document.createElement("p");
         productPrice.innerText = `Price : ${val.price}`;
-        divcreating.appendChild(productPrice);
-
+        productDetails.appendChild(productPrice);
+    
         let productDiscountPercentage = document.createElement("p");
-        productDiscountPercentage.innerText = `DiscountPercentage : ${val.discountPercentage}`;
-        divcreating.appendChild(productDiscountPercentage);
-
+        productDiscountPercentage.innerText = `Discount Percentage : ${val.discountPercentage}%`;
+        productDetails.appendChild(productDiscountPercentage);
+    
         let productBrand = document.createElement("p");
         productBrand.innerText = `Brand : ${val.brand}`;
-        divcreating.appendChild(productBrand);
-
-        let productBuy = document.createElement("button");
-        productBuy.innerText = "BUY HERE📌";
-        productBuy.style.width = "130px";
-        productBuy.style.height = "30px";
-        productBuy.style.fontSize = "small";
-        productBuy.style.border = "none";
-        productBuy.style.borderRadius = "2px";
-        productBuy.style.marginLeft = "70px";
-        productBuy.style.backgroundColor = "#FFA500";
-
-        productBuy.addEventListener("click", () => {
-          window.location.assign("./buy.html");
-          localStorage.setItem("buy", val);
+        productDetails.appendChild(productBrand);
+    
+        divcreating.appendChild(productDetails);
+    
+        let btnContainer = document.createElement("div");
+        btnContainer.className = "btn-container";
+    
+        let btnViewMore = document.createElement("button");
+        btnViewMore.innerText = "View more";
+        btnViewMore.addEventListener("click", () => {
+          let productImagesContainer = document.createElement("div");
+    
+          val.images.forEach((imageUrl) => {
+            let productImage = document.createElement("img");
+            productImage.src = imageUrl;
+            productImage.alt = `${val.title} Image`;
+            productImage.style.width = "100%";
+            productImagesContainer.appendChild(productImage);
+          });
+    
+          // Append the container with images to the existing divcreating container
+          divcreating.appendChild(productImagesContainer);
         });
-        divcreating.appendChild(productBuy);
-        divgetting[0].appendChild(divcreating);
+    
+        let btnBuy = document.createElement("button");
+        btnBuy.innerText = "BUY HERE📌";
+        btnBuy.style.backgroundColor = "#FFA500";
+        btnBuy.addEventListener("click", () => {
+          window.location.assign("./buy.html");
+          localStorage.setItem("buy", JSON.stringify(val));
+        });
+    
+        btnContainer.appendChild(btnViewMore);
+        btnContainer.appendChild(btnBuy);
+    
+        divcreating.appendChild(btnContainer);
+    
+        divgetting.appendChild(divcreating);
       });
     </script>
+    
   </body>
 </html>

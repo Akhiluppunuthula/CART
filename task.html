@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>PRODUCTS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -748,6 +748,7 @@
         seemore.style.fontSize = "small";
         seemore.style.border = "none";
         seemore.style.borderRadius = "2px";
+        seemore.style.color = "white";
         seemore.style.backgroundColor = "#D5A249";
         seemore.style.marginLeft = "95px";
         seemore.setAttribute("id", "hide");
@@ -765,15 +766,20 @@
         productAddCart.style.border = "none";
         productAddCart.style.borderRadius = "2px";
         productAddCart.style.marginLeft = "100px";
+     
+        productAddCart.style.color = "white";
+
         productAddCart.style.backgroundColor = "#FF3E6C";
         productAddCart.setAttribute("id", "hide");
 
         productAddCart.addEventListener("click", () => {
+          alert("Item added successfully")
           let cartgetting = localStorage.getItem("view_cart");
           let cart12 = cartgetting != null ? JSON.parse(cartgetting) : [];
           cart12.push(api[ind]);
           console.log(JSON.parse(cartgetting));
           localStorage.setItem("view_cart", JSON.stringify(cart12));
+          
         });
         let productBuy = document.createElement("button");
         productBuy.innerText = "Buy Now";
@@ -788,14 +794,12 @@
           window.location.assign("./buynow.html");
           localStorage.setItem("buy", val);
         });
-        // divcreating.appendChild(productBuy)
 
         divcreating.appendChild(productAddCart);
 
         divgetting.appendChild(divcreating);
       });
 
-      // })
       btn1.addEventListener("click", () => {
         displayProducts("smartphones");
       });
@@ -856,6 +860,7 @@
           let productAddCart = document.createElement("button");
           productAddCart.innerText = "Add to Bag🛒";
           productAddCart.style.backgroundColor = "#FF3E6C";
+          productBuy.style.color = "white";
           productAddCart.setAttribute("id", "hide");
           productAddCart.addEventListener("click", () => {
             let cartgetting = localStorage.getItem("view_cart");
